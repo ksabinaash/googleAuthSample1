@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    Data View Page
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#btnLogOff').click(function () {
+            window.location.href = "Data/SignOff";
+        });
+        
+ 
+    });
+</script>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="success">
+                <th>
+                    Social Logins
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="button" id="btnLogOff"
+                           value="Logout" class="btn btn-success" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
