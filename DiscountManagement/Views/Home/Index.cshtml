@@ -1,0 +1,30 @@
+﻿<div class="jumbotron">
+    <h1>Discount Management</h1>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnGoogleLogin').click(function () {
+            window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44330%2FData&state=AiqAPWJX_pGQwXQupJoTcBmuhR9Xs2hLsaR77HTDzOw1";
+        });
+    });
+</script>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="success">
+                <th>
+                    Social Logins
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="button" id="btnGoogleLogin"
+                           value="Login with Google" class="btn btn-info" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
