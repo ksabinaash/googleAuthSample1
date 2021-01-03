@@ -23,6 +23,8 @@ using Google.Apis.Services;
 using static Google.Apis.Sheets.v4.SheetsService;
 using Google.Apis.Sheets.v4.Data;
 using System.Linq;
+using DiscountManagement.Implementations;
+using System.Dynamic;
 
 namespace DiscountManagement.Controllers
 {
@@ -301,13 +303,15 @@ namespace DiscountManagement.Controllers
             if (isUserAuthenticatedforApplication(externalLogin.Email))
             {
                 Authentication.SignIn(identity);
+                return Ok();
             }
             else
             {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                //Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                return BadRequest("Not Authorized to use application.");
             }
 
-            return Ok();
+           
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
@@ -528,37 +532,37 @@ namespace DiscountManagement.Controllers
 
         public bool isUserAuthenticatedforApplication(object userEmail)
         {
-            IList<IList<Object>> SheetData = ExtractRecordsfromGoogelSpreadsheet();
+            List<string> UsersEmail = ExtractRecordsfromGoogelSpreadsheet();
 
-            //IList<object>UsersEmail = SheetData.
+            return UsersEmail.Contains(userEmail);
 
-            //Extract useremail from the sheetdata and find if the useremail existins
-
-
-            //return usersList.Contains(userEmail);
-
-            return true;
         }
 
-        public IList<IList<Object>> ExtractRecordsfromGoogelSpreadsheet()
+        public List<string> ExtractRecordsfromGoogelSpreadsheet()
         {
-            var path = HttpContext.Current.Server.MapPath("~/medilabdiscount-97c500b563df.json");
-            var credential = GoogleCredential.FromStream(new FileStream(path, FileMode.Open)).CreateScoped(_scopes);
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = _applicationName,
-            });
+            //var path = HttpContext.Current.Server.MapPath("~/medilabdiscount-97c500b563df.json");
+            //var credential = GoogleCredential.FromStream(new FileStream(path, FileMode.Open)).CreateScoped(_scopes);
+            //var service = new SheetsService(new BaseClientService.Initializer()
+            //{
+            //    HttpClientInitializer = credential,
+            //    ApplicationName = _applicationName,
+            //});
 
-            String range = "AuthorizedUsers";
-            SpreadsheetsResource.ValuesResource.GetRequest request =
-                                    service.Spreadsheets.Values.Get(spreadsheetId, range);
+            //String range = "AuthorizedUsers";
+            //SpreadsheetsResource.ValuesResource.GetRequest request =
+            //                        service.Spreadsheets.Values.Get(spreadsheetId, range);
 
-            ValueRange response = request.Execute();
+            String _sheetName = "AuthorizedUsers";
+            var gsh = new GoogleSheetsHelper();
+            var gsp = new GoogleSheetParameters() { RangeColumnStart = 1, RangeRowStart = 1, RangeColumnEnd = 2, RangeRowEnd = 100, FirstRowIsHeaders = true, SheetName = _sheetName };
+            var rowValues = gsh.GetUserEmailsFromSheet(gsp);
 
-            IList<IList<Object>> values = response.Values;
+            //List<IDictionary<String, object>> dictionary_object = gsh.GetDataFromSheet(gsp).ToList<ExpandoObject>();
+            //ValueRange response = request.Execute();
 
-            return values;
+            //IList<IList<Object>> values = response.Values;
+
+            return rowValues;
         }
 
     }
