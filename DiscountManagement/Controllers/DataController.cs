@@ -11,13 +11,34 @@ namespace DiscountManagement.Controllers
         // GET: Data
         public ActionResult Index()
         {
+            ViewBag.Title = "Transactions Page";
+
+            if (!string.IsNullOrEmpty(Session["userName"] as string))
+            {
+                ViewBag.User = Session["userName"].ToString();
+            }
+            else
+            {
+                ViewBag.User = String.Empty;
+            }
+
             return View();
         }
 
-        public ActionResult SignOff()        
+        public ActionResult Reports()
         {
-            Session.Abandon();
-            return RedirectToAction("Index", "Home", new { area = "" });
+            ViewBag.Title = "Reports Page";
+
+            if (!string.IsNullOrEmpty(Session["userName"] as string))
+            {
+                ViewBag.User = Session["userName"].ToString();
+            }
+            else
+            {
+                ViewBag.User = String.Empty;
+            }
+
+            return View();
         }
     }
 }

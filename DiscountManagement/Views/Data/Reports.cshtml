@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DiscountManagement.Models.Transaction>
+
+<div class="container">
+
+    <br />
+    <div class="row bg-success">
+        <div class="col-md-6">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        <div class="col-md-6 pull-right">
+            <h3>  Hi @ViewBag.User, </h3>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MobileNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShopName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BilledValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Discount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiscountReason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OTP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MessageTemplate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BilledDateTime)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MobileNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShopName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BilledValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountReason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OTP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MessageTemplate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BilledDateTime)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

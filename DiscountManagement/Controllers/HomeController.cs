@@ -8,9 +8,10 @@ namespace DiscountManagement.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string message=null)
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Login Page";
+            ViewBag.Message = message;
 
             string[] myCookies = Request.Cookies.AllKeys;
             foreach (string cookie in myCookies)
@@ -19,6 +20,12 @@ namespace DiscountManagement.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult LogOff()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Home", new { message = "You are logged off successfully!", area = "" });
         }
     }
 }
